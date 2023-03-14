@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_13_090615) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_14_035211) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -30,6 +30,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_090615) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "seats", force: :cascade do |t|
+    t.string "number"
+    t.boolean "booked"
+    t.bigint "bus_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bus_id"], name: "index_seats_on_bus_id"
+  end
+
+  create_table "trips", force: :cascade do |t|
+    t.integer "ticket_price", default: 0, null: false
+    t.integer "total_booked", default: 0, null: false
+    t.date "date", default: "2023-03-14", null: false
+    t.time "time", default: "2000-01-01 03:49:59", null: false
+    t.bigint "bus_id", null: false
+    t.bigint "route_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bus_id"], name: "index_trips_on_bus_id"
+    t.index ["route_id"], name: "index_trips_on_route_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
@@ -44,4 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_090615) do
     t.index ["user_name"], name: "index_users_on_user_name", unique: true
   end
 
+  add_foreign_key "seats", "buses"
+  add_foreign_key "trips", "buses"
+  add_foreign_key "trips", "routes"
 end
