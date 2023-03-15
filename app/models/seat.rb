@@ -1,6 +1,6 @@
 class Seat < ApplicationRecord
   belongs_to :bus
-  belongs_to :ticket
+  has_one :ticket
   
   validates :number, :booked, presence: true
 end
