@@ -73,5 +73,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
   gem 'phony_rails'
-
+  gem 'devise'
 end
