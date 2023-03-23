@@ -1,7 +1,7 @@
 class BusesController < ApplicationController
   before_action :find_bus_by_id, only: %i[edit update destroy]
   before_action :authenticate_user!
-
+  load_and_authorize_resource
   def index
     @buses = Bus.all.order('id ASC')
   end

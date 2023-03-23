@@ -1,7 +1,7 @@
 class TripsController < ApplicationController
   before_action :find_trip_by_id, only: %i[edit update destroy]
   before_action :authenticate_user!
-
+  load_and_authorize_resource
   def index
     @trips = Trip.all.order('id ASC')
   end

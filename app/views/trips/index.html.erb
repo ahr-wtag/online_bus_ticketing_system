@@ -1,7 +1,10 @@
 <h1>All Trips</h1>
 
 <nav>
-<%= link_to "Add Trips", new_trip_path%>
+ <% if can? :manage, @trips %>
+  <%= link_to "Add Trips", new_trip_path%>
+ <% end %>
+
 </nav>
 <br>
 
@@ -13,7 +16,10 @@
 <th>Time</th>
 <th>Bus</th>
 <th>Route</th>
-<th colspan=2>Action</th>
+<% if can? :manage, @trips %>
+  <th colspan=2>Action</th>
+ <% end %>
+
 </tr>
 <% for trip in @trips  do%>
 <tr>
@@ -23,12 +29,14 @@
     <td><%=trip.time.strftime("%I:%M %P")%></td>
     <td><%=trip.bus.name%></td>
     <td><%=trip.route.getFullRoute%></td>
-    <td><%= link_to "Edit", edit_trip_path(trip) %></td>
-    <td><%= link_to "Delete", trip_path(trip),data: {
+
+<% if can? :manage, @trips %>
+      <td><%= link_to "Edit", edit_trip_path(trip) %></td>
+      <td><%= link_to "Delete", trip_path(trip),data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure?"
                   }%></td>
-
+<% end %>
 </tr>
 <%end%>
 </table>

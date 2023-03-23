@@ -1,7 +1,10 @@
 <h1>All Buses</h1>
 
 <nav>
-<%= link_to "Add Bus", new_bus_path%>
+ <% if can? :manage, @buses %>
+ <%= link_to "Add Bus", new_bus_path%>
+ <% end %>
+
 </nav>
 <br>
 
@@ -12,7 +15,9 @@
 <th>Brand</th>
 <th>Type</th>
 <th>Capacity</th>
-<th colspan=2>Action</th>
+ <% if can? :manage, @buses %>
+ <th colspan=2>Action</th>
+ <% end %>
 </tr>
 <% for bus in @buses  do%>
 <tr>
@@ -21,11 +26,14 @@
     <td><%=bus.brand%></td>
     <td><%=bus.typed%></td>
     <td><%=bus.capacity%></td>
+    <% if can? :manage, @buses %>
     <td><%= link_to "Edit", edit_bus_path(bus) %></td>
     <td><%= link_to "Delete", bus_path(bus),data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure?"
                   }%></td>
+    <% end %>
+    
 
 </tr>
 <%end%>
