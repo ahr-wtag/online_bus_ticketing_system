@@ -5,11 +5,6 @@ Rails.application.routes.draw do
   resources :buses
   resources :trips
   # Defines the root path route ("/")
-  root "users#new"
-
-  #Authentication
- 
-  get 'sign_in', to: 'sessions#new'
-  post 'sign_in', to: 'sessions#create', as: 'log_in'
-  delete 'logout', to: 'sessions#destroy', as: 'log_out'
+    root 'buses#new' 
+  
 end
