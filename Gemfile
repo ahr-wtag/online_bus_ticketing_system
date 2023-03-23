@@ -72,6 +72,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+
+end
   gem 'phony_rails'
   gem 'devise'
-end

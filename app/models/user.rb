@@ -4,10 +4,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :tickets
+  validates_confirmation_of :password
 
   enum :role, %i[user admin]
   validates :first_name, :last_name, :email, :user_name, :password, :phone, :role, presence: true
   validates :email, :user_name, uniqueness: { case_sensitive: false }
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :phone, numericality: true, length: { minimum: 10, maximum: 15 }
+  phony_normalize :phone, :default_country_code => 'US'
 end
