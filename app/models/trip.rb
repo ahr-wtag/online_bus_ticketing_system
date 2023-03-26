@@ -10,4 +10,7 @@ class Trip < ApplicationRecord
       errors.add(:time, "Trip is already exist with tihs bus on this date and time");
     end
   end
+  def time=(time)
+    super(time.to_datetime.strftime("%I:%M %P"))
+end
 end

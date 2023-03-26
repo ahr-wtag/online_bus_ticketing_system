@@ -1,0 +1,24 @@
+<%= form_with url:booking_path ,method: :get do |f| %>
+  <div>
+     <%= f.label :origin %><br>
+    <%= f.select :origin, options_from_collection_for_select(@origins, "origin", "origin", params[:origin]),{prompt: "- Please select -"},{onchange: "this.form.submit()"} %>
+  </div>
+  <div>
+    <%= f.label :time %><br>
+      <%= f.select :destination, options_from_collection_for_select(@destinations, "destination", "destination", params[:destination]),{prompt: "- Please select -"},{onchange: "this.form.submit()"} %>
+  <div>
+<div>
+    <%= f.label :date %><br>
+    <%= f.date_field :date,{ :value => Time.now.strftime(params[:date]|| Date.today.to_s) ,onchange: "this.form.submit()"}%>
+  </div>
+     <div>
+    <%= f.label :time %><br>
+      <%= f.select :time,@times.map{|x| [x.time.strftime("%I:%M %P"),x.time]},{prompt: (params[:time].nil? || params[:time] =="") ? "- Please select -" : params[:time].to_time.strftime("%I:%M %P")} ,{onchange: "this.form.submit()"} %>
+  <div>
+  <div>
+    <%= f.label :bus %><br>
+       <%= f.select :bus,@buses.map{|x| [x.bus.name,x.bus_id]},{onchange: "this.form.submit()"} %>
+  </div>
+
+
+<% end %>

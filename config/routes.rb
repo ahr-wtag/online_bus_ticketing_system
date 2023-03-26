@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   resources :buses
   resources :trips
   # Defines the root path route ("/")
-    root 'buses#new' 
+  root 'buses#new'
+
+  #Booking and Ticketing Routes
+  get 'booking', to: 'tickets#index'
   
 end
