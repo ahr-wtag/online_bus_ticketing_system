@@ -7,7 +7,7 @@ class User < ApplicationRecord
   validates_confirmation_of :password
 
   enum :role, %i[user admin]
-  validates :first_name, :last_name, :email, :user_name, :password, :phone, :role, presence: true
+  validates :first_name, :last_name, :email, :user_name, :phone, :role, presence: true
   validates :email, :user_name, uniqueness: { case_sensitive: false }
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   phony_normalize :phone, :default_country_code => 'US'
