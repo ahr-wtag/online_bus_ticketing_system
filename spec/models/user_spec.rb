@@ -18,6 +18,16 @@ RSpec.describe User, type: :model do
       expect(user.valid?).to eq(false)
     end
 
+    it 'ensure first_name only content [a-z][A-Z]' do
+      user.first_name = 're23wan'
+      expect(user.valid?).to eq(false)   
+    end
+
+    it 'ensure last_name only content [a-z][A-Z]' do
+      user.last_name = '12a234b'
+      expect(user.valid?).to eq(false)   
+    end
+
     it 'ensure password presence' do
       user.encrypted_password = nil
       expect(user.valid?).to eq(false)
@@ -27,6 +37,12 @@ RSpec.describe User, type: :model do
       user.phone = nil
       expect(user.valid?).to eq(false)
     end
+
+    it 'ensure user_name presence' do
+      user.user_name = nil
+      expect(user.valid?).to eq(false)
+    end
+
     it 'ensure user role presence' do
       user.role = nil
       expect(user.valid?).to eq(false)
@@ -53,11 +69,17 @@ RSpec.describe User, type: :model do
       expect(another_user.valid?).to eq(false)
     end
 
-    it 'ensure email is unique' do
+    it 'ensure email is in correct format' do
+      user.email = "1format.com"
+      expect(URI::MailTo::EMAIL_REGEXP.match?(user.email)).to eq(false)
+    end
+
+
+    it 'ensure user_name is unique' do
       User.create(first_name:"zobayer",last_name:"ahmed",email:"zobayer@gmail.com",user_name:"zobayer",encrypted_password:"12345687",phone:"+8801564555654")
       another_user = User.create(first_name:"sakib",last_name:"ahmed",email:"sakib@gmail.com",user_name:"zobayer",encrypted_password:"12345687",phone:"+8801564555666")
       expect(another_user.valid?).to eq(false)
     end
-      
+
   end
 end
