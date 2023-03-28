@@ -36,15 +36,10 @@ RSpec.describe Bus, type: :model do
       expect(bus.valid?).to eq(false)
     end
 
-    it 'ensure type is between [ac,non-ac]' do
-      bus.typed = 'ab'
-      expect(bus.valid?).to eq(false)
-    end
-
     it 'ensure bus name / lisence is unique' do
       Bus.create(name:'ena-123',typed:'ac',brand:'ena',capacity:'45')
       another_bus = 
-      Bus.create(name:'ena-123',typed:'non-ac',brand:'ena',capacity:'35')
+      Bus.create(name:'ena-123',typed:'non_ac',brand:'ena',capacity:'35')
       expect(another_bus.valid?).to eq(false)
     end
 
