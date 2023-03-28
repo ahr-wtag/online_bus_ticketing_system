@@ -4,11 +4,7 @@ class Bus < ApplicationRecord
 
     validates :capacity , numericality: { greater_than:0, less_than_or_equal_to: 45 }
 
-    TYPES = ['ac','non-ac']
-    validates_inclusion_of :typed, in: TYPES
-    def typed=(typed)
-        super(typed&.downcase&.strip)
-    end
+    enum typed: { ac: 'ac', non_ac: 'non_ac' }
 
     def name=(name)
         super(name&.downcase&.strip&.delete(' '))
