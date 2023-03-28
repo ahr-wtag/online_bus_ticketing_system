@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Seat, type: :model do
-  context 'when Seat a user' do
+  context 'when creating a Seat' do
     let(:seat) {FactoryBot.build(:seat)}
     let(:bus) {FactoryBot.build(:bus)}
 

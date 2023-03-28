@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Trip, type: :model do
-  context 'when Trip a user' do
+  context 'when creating a trip' do
     let(:trip) {FactoryBot.build(:trip)}
     let!(:bus){FactoryBot.build(:bus)}
     let!(:route){FactoryBot.build(:route)}
