@@ -41,10 +41,5 @@ RSpec.describe Trip, type: :model do
       trip.route = route
       expect(trip.route != route).to eq(false)
     end
-
-
-
-
-
   end
 end
