@@ -4,6 +4,7 @@ RSpec.describe Seat, type: :model do
   context 'when creating a Seat' do
     let(:seat) {FactoryBot.build(:seat)}
     let(:bus) {FactoryBot.build(:bus)}
+    let(:ticket) {FactoryBot.build(:ticket)}
 
     it 'ensure seat number presence' do
       seat.number = nil
@@ -18,5 +19,15 @@ RSpec.describe Seat, type: :model do
       seat.bus = bus
       expect(seat.bus != bus).to eq(false)
     end
+
+    #association testing
+
+    it 'ensure belongs to bus' do
+      seat.bus = bus
+      expect(seat.bus != bus).to eq(false)
+    end
+    
+
+
   end
 end

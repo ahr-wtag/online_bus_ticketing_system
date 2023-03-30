@@ -3,6 +3,12 @@ require 'rails_helper'
 RSpec.describe Bus, type: :model do
   context 'when creating a bus' do
     let(:bus) {FactoryBot.build(:bus)}
+    let(:ticket1) {FactoryBot.build(:ticket)}
+    let(:ticket2) {FactoryBot.build(:ticket)}
+    let(:seat1) {FactoryBot.build(:seat)}
+    let(:seat2) {FactoryBot.build(:seat)}
+    let(:route) {FactoryBot.build(:route)}
+    let(:trip) {FactoryBot.build(:trip)}
     it 'ensure name presence' do
       bus.name = nil
       expect(bus.valid?).to eq(false)
@@ -45,5 +51,21 @@ RSpec.describe Bus, type: :model do
 
 
 
+    #association testing
+
+    it "has many tickets" do
+        bus.tickets << [ticket1, ticket2]
+        expect(bus.tickets).to eq([ticket1, ticket2])
+    end
+
+    it "has many seats" do
+      bus.seats << [seat1, seat2]
+      expect(bus.seats).to eq([seat1, seat2])
+    end
+
+    it "has one trip" do
+      trip.bus = bus;
+      expect(bus.trip).to eq(trip)
+    end
   end
 end
