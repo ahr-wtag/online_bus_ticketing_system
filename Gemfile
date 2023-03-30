@@ -67,6 +67,7 @@ group :development do
   # gem "spring"
   gem "rspec-rails"
   gem "factory_bot_rails"
+  gem 'shoulda-matchers', '~> 5.0'
 end
 
 group :test do
@@ -76,5 +77,7 @@ group :test do
   gem "webdrivers"
   gem "rspec-rails"
   gem "factory_bot_rails"
+  gem 'shoulda-matchers', '~> 5.0'
 end
 gem 'faker'
+gem 'pry'

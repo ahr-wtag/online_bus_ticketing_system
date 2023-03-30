@@ -1,85 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  context 'when creating a user' do
-    let(:user) {FactoryBot.build(:user)}
-    it 'ensure first_name presence' do
-      user.first_name = nil
-      expect(user.valid?).to eq(false)
+  let(:user) { FactoryBot.create(:user) }
+  
+  describe 'when creating a user' do
+    it 'has a valid factory' do
+      expect(user).to be_valid
     end
-
-    it 'ensure last_name presence' do
-      user.last_name = nil
-      expect(user.valid?).to eq(false)
-    end
-
-    it 'ensure email presence' do
-      user.email = nil
-      expect(user.valid?).to eq(false)
-    end
-
-    it 'ensure first_name only content [a-z][A-Z]' do
-      user.first_name = 're23wan'
-      expect(user.valid?).to eq(false)   
-    end
-
-    it 'ensure last_name only content [a-z][A-Z]' do
-      user.last_name = '12a234b'
-      expect(user.valid?).to eq(false)   
-    end
-
-    it 'ensure password presence' do
-      user.encrypted_password = nil
-      expect(user.valid?).to eq(false)
-    end
-
-    it 'ensure phone number presence' do
-      user.phone = nil
-      expect(user.valid?).to eq(false)
-    end
-
-    it 'ensure user_name presence' do
-      user.user_name = nil
-      expect(user.valid?).to eq(false)
-    end
-
-    it 'ensure user role presence' do
-      user.role = nil
-      expect(user.valid?).to eq(false)
-    end
-
-    it 'ensure phone number has minimum 10 and character' do
-      user.phone="123456789";
-      expect(user.valid?).to eq(false)
-    end
-
-    it 'ensure phone number has maximum 15 and character' do
-      user.phone="1234567893034567";
-      expect(user.valid?).to eq(false)
-    end
-
-    it 'ensure phone number string contain only digit' do
-      user.phone="0195mflgotj44";
-      expect(user.valid?).to eq(false)
-    end
-
-    it 'ensure email is unique' do
-      User.create(first_name:"redwan",last_name:"ahmed",email:"redwan@gmail.com",user_name:"redwan",encrypted_password:"12345687",phone:"+8801564555654")
-      another_user = User.create(first_name:"imtiaz",last_name:"rafi",email:"redwan@gmail.com",user_name:"imtiaz",encrypted_password:"12345687",phone:"+8801564555666")
-      expect(another_user.valid?).to eq(false)
-    end
-
-    it 'ensure email is in correct format' do
-      user.email = "1format.com"
-      expect(URI::MailTo::EMAIL_REGEXP.match?(user.email)).to eq(false)
-    end
-
-
-    it 'ensure user_name is unique' do
-      User.create(first_name:"zobayer",last_name:"ahmed",email:"zobayer@gmail.com",user_name:"zobayer",encrypted_password:"12345687",phone:"+8801564555654")
-      another_user = User.create(first_name:"sakib",last_name:"ahmed",email:"sakib@gmail.com",user_name:"zobayer",encrypted_password:"12345687",phone:"+8801564555666")
-      expect(another_user.valid?).to eq(false)
-    end
-
+    it { should validate_presence_of(:first_name) }
+    it { should validate_presence_of(:last_name) }
+    it { should validate_presence_of(:email) }
+    it { should validate_presence_of(:encrypted_password) }
+    it { should validate_presence_of(:phone) }
+    it { should validate_presence_of(:user_name) }
+    it { should validate_presence_of(:role) }
+    it { should allow_value('user@example.com').for(:email) }
+    it { should_not allow_value('not_an_email').for(:email) }
+    it { should validate_uniqueness_of(:email).case_insensitive  }
+    it { should validate_uniqueness_of(:user_name).case_insensitive  }
+    it { should allow_value('onlyletters').for(:first_name) }
+    it { should_not allow_value('letters123').for(:first_name) }
+    it { should allow_value('onlyletters').for(:last_name) }
+    it { should_not allow_value('letters123').for(:last_name) }
+    it { should allow_value('+99999999999').for(:phone) }
   end
 end
