@@ -1,49 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe Bus, type: :model do
-  context 'when creating a bus' do
-    let(:bus) {FactoryBot.build(:bus)}
-    it 'ensure name presence' do
-      bus.name = nil
-      expect(bus.valid?).to eq(false)
+  let(:bus) { FactoryBot.create(:bus) }
+  describe 'when creating a bus' do
+    it 'has a valid factory' do
+      expect(bus).to be_valid
     end
-
-    it 'ensure type presence' do
-      bus.typed = nil
-      expect(bus.valid?).to eq(false)
-    end
-
-
-    it 'ensure brand presence' do
-      bus.brand = nil
-      expect(bus.valid?).to eq(false)
-    end
-
-    it 'ensure capacity presence' do
-      bus.capacity = nil
-      expect(bus.valid?).to eq(false)
-    end
-
-
-    it 'ensure capacity is greater than 0' do
-      bus.capacity = -1
-      expect(bus.valid?).to eq(false)
-    end
-
-
-    it 'ensure capacity is less than or equal 45' do
-      bus.capacity = 46
-      expect(bus.valid?).to eq(false)
-    end
-
-    it 'ensure bus name / lisence is unique' do
-      Bus.create(name:'ena-123',typed:'ac',brand:'ena',capacity:'45')
-      another_bus = 
-      Bus.create(name:'ena-123',typed:'non_ac',brand:'ena',capacity:'35')
-      expect(another_bus.valid?).to eq(false)
-    end
-
-
-
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:typed) }
+    it { should validate_presence_of(:brand) }
+    it { should validate_presence_of(:capacity) }
+    it { should validate_numericality_of(:capacity).is_greater_than(0).is_less_than(46) }
+    it { should validate_uniqueness_of(:name).case_insensitive  }
   end
 end
