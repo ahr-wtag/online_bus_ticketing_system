@@ -27,6 +27,10 @@ RSpec.describe Seat, type: :model do
       expect(seat.bus != bus).to eq(false)
     end
     
+    it 'ensure belongs to ticket' do
+      seat.ticket = ticket
+      expect(seat.ticket != ticket).to eq(false)
+    end
 
 
   end

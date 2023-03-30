@@ -5,6 +5,8 @@ RSpec.describe Trip, type: :model do
     let(:trip) {FactoryBot.build(:trip)}
     let!(:bus){FactoryBot.build(:bus)}
     let!(:route){FactoryBot.build(:route)}
+    let(:ticket1) {FactoryBot.build(:ticket)}
+    let(:ticket2) {FactoryBot.build(:ticket)}
     it 'ensure ticket_price presence' do
       trip.ticket_price = nil
       expect(trip.valid?).to eq(false)
@@ -32,6 +34,7 @@ RSpec.describe Trip, type: :model do
       expect(trip.valid?).to eq(false)
     end
 
+    #association testing
     it 'ensure belongs_to bus' do
       trip.bus = bus
       expect(trip.bus != bus).to eq(false)
@@ -41,5 +44,12 @@ RSpec.describe Trip, type: :model do
       trip.route = route
       expect(trip.route != route).to eq(false)
     end
+
+    it "ensure has many tickets" do
+      trip.tickets << [ticket1, ticket2]
+      expect(trip.tickets).to eq([ticket1, ticket2])
+  end
+
+
   end
 end

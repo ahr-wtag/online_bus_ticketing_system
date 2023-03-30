@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   context 'when creating a user' do
     let(:user) {FactoryBot.build(:user)}
+    let(:ticket1) {FactoryBot.build(:ticket)}
+    let(:ticket2) {FactoryBot.build(:ticket)}
     it 'ensure first_name presence' do
       user.first_name = nil
       expect(user.valid?).to eq(false)
@@ -80,6 +82,12 @@ RSpec.describe User, type: :model do
       another_user = User.create(first_name:"sakib",last_name:"ahmed",email:"sakib@gmail.com",user_name:"zobayer",encrypted_password:"12345687",phone:"+8801564555666")
       expect(another_user.valid?).to eq(false)
     end
+
+    #association testing
+  it "ensure has many tickets" do
+      user.tickets << [ticket1, ticket2]
+      expect(user.tickets).to eq([ticket1, ticket2])
+  end
 
   end
 end
