@@ -4,21 +4,38 @@
     <%= f.select :origin, options_from_collection_for_select(@origins, "origin", "origin", params[:origin]),{prompt: "- Please select -"},{onchange: "this.form.submit()"} %>
   </div>
   <div>
-    <%= f.label :time %><br>
+    <%= f.label :destination %><br>
       <%= f.select :destination, options_from_collection_for_select(@destinations, "destination", "destination", params[:destination]),{prompt: "- Please select -"},{onchange: "this.form.submit()"} %>
-  <div>
+  </div>
 <div>
     <%= f.label :date %><br>
     <%= f.date_field :date,{ :value => Time.now.strftime(params[:date]|| Date.today.to_s) ,onchange: "this.form.submit()"}%>
   </div>
-     <div>
-    <%= f.label :time %><br>
-      <%= f.select :time,@times.map{|x| [x.time.strftime("%I:%M %P"),x.time]},{prompt: (params[:time].nil? || params[:time] =="") ? "- Please select -" : params[:time].to_time.strftime("%I:%M %P")} ,{onchange: "this.form.submit()"} %>
-  <div>
-  <div>
-    <%= f.label :bus %><br>
-       <%= f.select :bus,@buses.map{|x| [x.bus.name,x.bus_id]},{onchange: "this.form.submit()"} %>
-  </div>
-
-
 <% end %>
+
+<br>
+<table border="1">
+<tr>
+<th>ID</th>
+<th>Ticket Price</th>
+<th>Date</th>
+<th>Time</th>
+<th>Bus</th>
+<th>Route</th>
+<th colspan=2>Action</th>
+
+
+</tr>
+<% for trip in @trips  do%>
+<tr>
+    <td><%=trip.id%></td>
+    <td><%=trip.ticket_price%></td>
+    <td><%=trip.date%></td>
+    <td><%=trip.time.strftime("%I:%M %P")%></td>
+    <td><%=trip.bus.name%></td>
+    <td><%=trip.route.getFullRoute%></td>
+    <td><%= link_to "Buy Ticket", seat_plan_path(trip) %></td>
+
+</tr>
+<%end%>
+</table>

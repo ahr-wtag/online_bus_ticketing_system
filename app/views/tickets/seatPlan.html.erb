@@ -1,0 +1,32 @@
+<table border="1">
+<tr>
+<th>Ticket Price</th>
+<th>Date</th>
+<th>Time</th>
+<th>Bus</th>
+<th>Route</th>
+</tr>
+<tr>
+    <td><%=@trip.ticket_price%></td>
+    <td><%=@trip.date%></td>
+    <td><%=@trip.time.strftime("%I:%M %P")%></td>
+    <td><%=@trip.bus.name%></td>
+    <td><%=@trip.route.getFullRoute%></td>
+</tr>
+</table>
+
+<br>
+
+<%= form_with url:payment_path ,method: :post do |f| %>
+   
+   <%= f.hidden_field :bus_id,{:value => @trip.bus.id}  %>
+   <%= f.hidden_field :trip_id,{:value => @trip.id}  %>
+   <%= f.hidden_field :route_id,{:value => @trip.route.id}  %>
+   
+   <%for seat in @bus.seats%>
+     <%=seat.number%>:<input type="checkbox" name=<%=seat.id%> id=<%=seat.id%> value=<%=seat.id%>><br>
+  <%end%>
+      <%= f.submit %>
+<% end %>
+
+
