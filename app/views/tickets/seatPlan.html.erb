@@ -23,9 +23,16 @@
    <%= f.hidden_field :trip_id,{:value => @trip.id}  %>
    <%= f.hidden_field :route_id,{:value => @trip.route.id}  %>
    
-   <%for seat in @bus.seats%>
-     <%=seat.number%>:<input type="checkbox" name=<%=seat.id%> id=<%=seat.id%> value=<%=seat.id%>><br>
+   <%@seats.each.with_index do |seat,index|%>
+     <%=seat.number%>:<input type="checkbox" <%= seat.booked ? "disabled" : "" %> name=<%=seat.id%>   id=<%=seat.id%> value=<%=seat.id%>>
+     <% if (index+1)%2 == 0 && (index+1)%4 != 0%>
+     <span>|----|</span>
+     <% end %>
+     <% if (index+1)%4 == 0%>
+     <br>
+     <% end %>
   <%end%>
+  <br>
       <%= f.submit %>
 <% end %>
 

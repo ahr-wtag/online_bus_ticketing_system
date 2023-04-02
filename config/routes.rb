@@ -8,8 +8,9 @@ Rails.application.routes.draw do
   root 'buses#new'
 
   #Booking and Ticketing Routes
-  get 'booking', to: 'tickets#index'
+  get 'booking', to: 'tickets#index' ,as: 'booking'
   get 'seatPlan/:id', to: 'tickets#seatPlan', as: 'seat_plan'
   post 'payment', to: 'tickets#payment', as: 'payment'
-  get 'confirm_payment', to: 'tickets#confirm_payment'
+  get 'process_payment', to: 'tickets#process_payment'
+  post 'confirm_payment', to: 'tickets#confirm_payment'
 end

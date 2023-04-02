@@ -63,8 +63,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_22_082933) do
   create_table "trips", force: :cascade do |t|
     t.integer "ticket_price", default: 0, null: false
     t.integer "total_booked", default: 0, null: false
-    t.date "date", default: "2023-03-28", null: false
-    t.time "time", default: "2000-01-01 09:24:18", null: false
+    t.date "date", default: "2023-03-30", null: false
+    t.time "time", default: "2000-01-01 07:32:00", null: false
     t.bigint "bus_id", null: false
     t.bigint "route_id", null: false
     t.datetime "created_at", null: false

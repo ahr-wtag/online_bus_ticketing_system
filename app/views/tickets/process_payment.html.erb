@@ -1,0 +1,26 @@
+number of seats : <%=@seats.size%><br>
+ticket price : <%=@trip.ticket_price%><br>
+total: <%=@total%>
+<br>
+<br>
+<%= form_with url:confirm_payment_path ,method: :post do |f| %>
+<div>
+    <%= f.label :number %><br>
+    <%= f.text_field :number%>
+</div>
+
+<div>
+    <%= f.label :CVC %><br>
+    <%= f.text_field :cvc%>
+  </div>
+<div>
+    <%= f.label :expiry_date %><br>
+    <%= f.text_field :expiry_date%>
+</div>
+
+<div>
+    <br>
+    <%= f.submit :pay%>
+</div>
+
+<%end%>
