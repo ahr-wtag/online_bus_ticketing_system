@@ -23,5 +23,11 @@ RSpec.describe User, type: :model do
     it { should allow_value('onlyletters').for(:last_name) }
     it { should_not allow_value('letters123').for(:last_name) }
     it { should allow_value('+99999999999').for(:phone) }
+    it { should_not allow_value('').for(:first_name) }
+    it { should_not allow_value('').for(:last_name) }
+    it { should_not allow_value('').for(:encrypted_password) }
+    it { should_not allow_value('').for(:phone) }
+    it { should_not allow_value('').for(:user_name) }
+    it { should_not allow_value('').for(:role) }
   end
 end
