@@ -1,5 +1,4 @@
 class Seat < ApplicationRecord
   belongs_to :bus
-
-  validates :number, :booked, presence: true
+  validates :number, presence: true
 end

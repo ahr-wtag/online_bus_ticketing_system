@@ -1,45 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe Trip, type: :model do
-  context 'when creating a trip' do
-    let(:trip) {FactoryBot.build(:trip)}
-    let!(:bus){FactoryBot.build(:bus)}
-    let!(:route){FactoryBot.build(:route)}
-    it 'ensure ticket_price presence' do
-      trip.ticket_price = nil
-      expect(trip.valid?).to eq(false)
-    end
-    it 'ensure total_booked presence' do
-      trip.total_booked = nil
-      expect(trip.valid?).to eq(false)
-    end
-    it 'ensure date presence' do
-      trip.date = nil
-      expect(trip.valid?).to eq(false)
-    end
-    it 'ensure time presence' do
-      trip.time = nil
-      expect(trip.valid?).to eq(false)
-    end
+  let(:trip) {FactoryBot.build(:trip)}
+  describe 'when creating a trip' do
+    it 'has a valid factory' do
+      expect(trip).to be_valid
 
-    it 'ensure bus presence' do
-      trip.bus = nil
-      expect(trip.valid?).to eq(false)
     end
-
-    it 'ensure route presence' do
-      trip.route = nil
-      expect(trip.valid?).to eq(false)
-    end
-
-    it 'ensure belongs_to bus' do
-      trip.bus = bus
-      expect(trip.bus != bus).to eq(false)
-    end
-
-    it 'ensure belongs_to route' do
-      trip.route = route
-      expect(trip.route != route).to eq(false)
-    end
+    it { should validate_presence_of(:ticket_price) }
+    it { should validate_presence_of(:total_booked) }
+    it { should validate_presence_of(:date) }
+    it { should validate_presence_of(:time) }
+    it { should belong_to(:bus) }
+    it { should belong_to(:route) }
   end
 end

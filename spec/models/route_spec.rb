@@ -1,17 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Route, type: :model do
-  context 'when creating a user' do
-    let(:route) {FactoryBot.build(:route)}
-    it 'ensure origin presence' do
-      route.origin = nil
-      expect(route.valid?).to eq(false)
+  let(:route) { FactoryBot.create(:route) }
+  describe 'when creating a route' do
+    it 'has a valid factory' do
+      expect(route).to be_valid
     end
-
-    it 'ensure destination presence' do
-      route.destination = nil
-      expect(route.valid?).to eq(false)
+    it { should validate_presence_of(:origin) }
+    it { should validate_presence_of(:destination) }
     end
-      
-  end
 end
