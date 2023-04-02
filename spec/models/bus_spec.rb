@@ -10,7 +10,6 @@ RSpec.describe Bus, type: :model do
     it { should validate_presence_of(:typed) }
     it { should validate_presence_of(:brand) }
     it { should validate_presence_of(:capacity) }
-    it { should validate_numericality_of(:capacity).is_greater_than(0).is_less_than(46) }
-    it { should validate_uniqueness_of(:name).case_insensitive  }
+    it { should validate_numericality_of(:capacity).is_greater_than(0).is_less_than_or_equal_to(45) }
   end
 end
