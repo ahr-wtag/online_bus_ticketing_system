@@ -80,3 +80,4 @@ group :test do
 end
 gem 'faker'
 gem 'pry'
+gem 'rails-controller-testing'
