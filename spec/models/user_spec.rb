@@ -30,5 +30,6 @@ RSpec.describe User, type: :model do
     it { should_not allow_value('').for(:phone) }
     it { should_not allow_value('').for(:user_name) }
     it { should_not allow_value('').for(:role) }
+    it { should have_many(:tickets) }
   end
 end

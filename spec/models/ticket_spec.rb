@@ -11,5 +11,6 @@ RSpec.describe Ticket, type: :model do
     it { should belong_to(:trip) }
     it { should belong_to(:bus) }
     it { should belong_to(:payment) }
+    it { should have_many(:seats) }
   end
 end

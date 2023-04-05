@@ -13,5 +13,8 @@ RSpec.describe Bus, type: :model do
     it { should validate_numericality_of(:capacity).is_greater_than(0).is_less_than_or_equal_to(45) }
     it { should allow_value('ena-wi7jog4h').for(:name) }
     it { should_not allow_value('with white space').for(:name) }
+    it { should have_many(:tickets) }
+    it { should have_many(:seats) }
+    it { should have_one(:trip) }
   end
 end
