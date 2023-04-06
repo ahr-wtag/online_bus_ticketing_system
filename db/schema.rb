@@ -15,9 +15,9 @@ ActiveRecord::Schema[7.0].define(version: 20_230_314_095_825) do
   enable_extension 'plpgsql'
 
   create_table 'buses', force: :cascade do |t|
-    t.string 'name', default: '', null: false
-    t.string 'typed', default: '', null: false
-    t.string 'brand', default: '', null: false
+    t.string 'name', null: false
+    t.integer 'typed', default: 0, null: false
+    t.string 'brand', null: false
     t.integer 'capacity', default: 0, null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
