@@ -32,7 +32,7 @@ class BusesController < ApplicationController
 
   def update
     if @bus.update(bus_params)
-      redirect_to action: 'index', status: :ok
+      redirect_to action: 'index', status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -40,7 +40,7 @@ class BusesController < ApplicationController
 
   def destroy
     @bus.destroy
-    redirect_to action: 'index', status: :no_content
+    redirect_to action: 'index', status: :see_other
   end
 
   private
