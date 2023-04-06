@@ -5,5 +5,5 @@ class Bus < ApplicationRecord
 
   validates :capacity, numericality: { greater_than: 0, less_than_or_equal_to: 45 }
 
-  enum typed: { ac: 'ac', non_ac: 'non_ac' }
+  enum typed: { ac: 0, non_ac: 1 }
 end
