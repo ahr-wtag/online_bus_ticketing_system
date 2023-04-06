@@ -51,3 +51,14 @@ end
   time = Faker::Time.between(from: DateTime.now - 1, to: DateTime.now, format: :default)
   Trip.create!(ticket_price:, total_booked:, date:, time:, bus: Bus.last, route: Route.last)
 end
+
+# seed for payment
+10.times do
+  Payment.create
+end
+
+# seed for ticket
+10.times do
+  total_fare = Faker::Number.between(from: 1, to: 1000)
+  Ticket.create(total_fare:, user: User.last, trip: Trip.last, bus: Bus.last, payment: Payment.last)
+end
