@@ -35,3 +35,19 @@ end
   destination = Faker::Travel::Airport.iata(size: 'large', region: 'united_states')
   Route.create(origin:, destination:)
 end
+
+# seed for seat
+10.times do
+  number = [*('A'..'Z')].sample + %w[1 2].sample
+  booked = [true, false].sample
+  Seat.create!(number:, booked:, bus: Bus.last)
+end
+
+# seed for trip
+10.times do
+  ticket_price = Faker::Number.between(from: 1, to: 1000)
+  total_booked = Faker::Number.between(from: 1, to: 45)
+  date = Faker::Date.between(from: '2023-02-23', to: '2023-09-25')
+  time = Faker::Time.between(from: DateTime.now - 1, to: DateTime.now, format: :default)
+  Trip.create!(ticket_price:, total_booked:, date:, time:, bus: Bus.last, route: Route.last)
+end
