@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+# seed for user
 10.times do
   first_name = Faker::Name.last_name
   last_name = Faker::Name.last_name
@@ -17,4 +18,20 @@
 
   User.create(first_name:, last_name:, email:, user_name:, role:, phone:,
               encrypted_password:)
+end
+
+# seed for bus
+10.times do
+  name = Faker::Vehicle.singapore_license_plate
+  typed = %w[ac non_ac].sample
+  brand = Faker::Vehicle.manufacture
+  capacity = Faker::Number.between(from: 0, to: 45)
+  Bus.create(name:, typed:, brand:, capacity:)
+end
+
+# seed for route
+10.times do
+  origin = Faker::Travel::Airport.iata(size: 'large', region: 'united_states')
+  destination = Faker::Travel::Airport.iata(size: 'large', region: 'united_states')
+  Route.create(origin:, destination:)
 end
