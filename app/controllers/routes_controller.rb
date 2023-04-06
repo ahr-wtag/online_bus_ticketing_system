@@ -22,7 +22,7 @@ class RoutesController < ApplicationController
 
   def update
     if @route.update(route_params)
-      redirect_to action: 'index', status: :ok
+      redirect_to action: 'index', status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -30,7 +30,7 @@ class RoutesController < ApplicationController
 
   def destroy
     @route.destroy
-    redirect_to action: 'index', status: :no_content
+    redirect_to action: 'index', status: :see_other
   end
 
   private

@@ -43,7 +43,7 @@ RSpec.describe 'Routes', type: :request do
 
     it 'returns a success response' do
       put "/routes/#{route.id}", params: valid_params
-      expect(response).to have_http_status(:ok)
+      expect(response).to have_http_status(:see_other)
     end
   end
 
@@ -58,7 +58,7 @@ RSpec.describe 'Routes', type: :request do
 
     it 'returns a success response' do
       delete "/routes/#{route.id}"
-      expect(response).to have_http_status(:no_content)
+      expect(response).to have_http_status(:see_other)
     end
   end
 end
