@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
   before_action :find_dependency, only: %i[index]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[process_payment confirm_payment]
   def index
     @origins = Route.select('DISTINCT ON (origin) *')
     @destinations = @destination || []
@@ -17,28 +17,27 @@ class TicketsController < ApplicationController
   def confirm_payment
     @seats = session[:seats]
     @trip = Trip.find_by(id: session[:trip])
+    @payment = Payment.create
     @total = @seats.size * @trip.ticket_price
-    @ticket = Ticket.new(total_fare: @total, user: current_user, payment_id: 1, trip: @trip, bus: @trip.bus)
+    @ticket = Ticket.new(total_fare: @total, user: current_user, payment: @payment, trip: @trip, bus: @trip.bus)
 
     for i in @seats
-        if @trip.bus.seats.find_by(id:i).booked == true
-            flash[:alert] = "Booking Failed";
-            return redirect_to action: 'index';
-            
-        end
+      next unless @trip.bus.seats.find_by(id: i).booked == true
+
+      flash[:alert] = 'Booking Failedx'
+      return redirect_to action: 'index'
+
     end
-
-
     if @ticket.save
       for i in @seats
-        @trip.bus.seats.find_by(id:i).update(booked: true)
+        @trip.bus.seats.find_by(id: i).update(booked: true, ticket: @ticket)
       end
-      flash[:notice] = "Succesfully Booked"
-      redirect_to action: 'index';
+      flash[:notice] = 'Succesfully Booked'
+      redirect_to action: 'index'
     else
-    
-        flash[:alert] = "Booking Failed"
-        redirect_to action: 'index';
+
+      flash[:alert] = 'Booking Failed'
+      redirect_to action: 'index'
     end
   end
 

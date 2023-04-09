@@ -1,1 +1,22 @@
-<%@user.name%>
+<h1>Hello <%=@user.first_name%></h1>
+
+<h5>Tickets</h5>
+<hr>
+
+<table border="1">
+<tr>
+<th>ID</th>
+<th>Route</th>
+<th>Seats</th>
+<th>Price</th>
+<th>Total Price</th>
+    <% for ticket in @tickets  do%>
+<tr>
+    <td><%=ticket.id%></td>
+    <td><%=ticket.trip.route.getFullRoute%></td>
+    <td><%=ticket.seats.map {|seat| seat.number }%></td>
+    <td><%=ticket.trip.ticket_price%></td>
+    <td><%=ticket.total_price%></td>
+</tr>
+ <% end %>
+</table>

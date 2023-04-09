@@ -22,17 +22,20 @@
    <%= f.hidden_field :bus_id,{:value => @trip.bus.id}  %>
    <%= f.hidden_field :trip_id,{:value => @trip.id}  %>
    <%= f.hidden_field :route_id,{:value => @trip.route.id}  %>
-   
-   <%@seats.each.with_index do |seat,index|%>
-     <%=seat.number%>:<input type="checkbox" <%= seat.booked ? "disabled" : "" %> name=<%=seat.id%>   id=<%=seat.id%> value=<%=seat.id%>>
-     <% if (index+1)%2 == 0 && (index+1)%4 != 0%>
-     <span>|----|</span>
-     <% end %>
-     <% if (index+1)%4 == 0%>
-     <br>
-     <% end %>
-  <%end%>
-  <br>
+   <div>
+      <div class="row row-cols-4">
+    <%@seats.each.with_index do |seat,index|%>
+        <div class="col d-flex flex-column align-itens-center align-items-center justify-content-center pb-2">
+         <%=seat.number%><input class type="checkbox" <%= seat.booked ? "disabled" : "" %> name=<%=seat.id%>   id=<%=seat.id%> value=<%=seat.id%>> 
+         </div>
+        <% if (index+1)%4 == 0%>
+        <br>
+        <% end %>
+    <%end%>
+     
+   </div>
+   </div>
+   <br>
       <%= f.submit %>
 <% end %>
 

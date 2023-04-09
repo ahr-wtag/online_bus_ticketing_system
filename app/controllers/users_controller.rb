@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :find_user_by_id, only: %i[edit update show]
+  before_action :find_user_by_id, only: %i[edit update]
   def new
     @user = User.new
   end
@@ -13,7 +13,10 @@ class UsersController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @user = current_user
+    @tickets = Ticket.where(user: @user)
+  end
 
   def edit; end
 

@@ -6,9 +6,10 @@ Rails.application.routes.draw do
   resources :trips
   # Defines the root path route ("/")
   root 'tickets#index'
+  get 'profile', to: 'users#show', as: 'profile'
 
-  #Booking and Ticketing Routes
-  get 'booking', to: 'tickets#index' ,as: 'booking'
+  # Booking and Ticketing Routes
+  get 'booking', to: 'tickets#index', as: 'booking'
   get 'seatPlan/:id', to: 'tickets#seatPlan', as: 'seat_plan'
   post 'payment', to: 'tickets#payment', as: 'payment'
   get 'process_payment', to: 'tickets#process_payment'
