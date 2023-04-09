@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
+  let(:user) { create :user }
+  before(:each) do
+    sign_in(user)
+  end
+
   describe 'POST /user' do
     let(:valid_params) { { user: attributes_for(:user) } }
 

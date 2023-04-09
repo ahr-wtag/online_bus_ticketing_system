@@ -4,6 +4,6 @@ FactoryBot.define do
     name { Faker::Vehicle.singapore_license_plate }
     typed { %i[ac non_ac].sample }
     brand { Faker::Vehicle.manufacture }
-    capacity { Faker::Number.between(from: 0, to: 45) }
+    capacity { Faker::Number.between(from: 1, to: 45) }
   end
 end

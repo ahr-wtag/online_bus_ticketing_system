@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Buses', type: :request do
+  let(:user) {create :user}
+  before(:each) do 
+    sign_in(user)
+  end
   describe 'GET /buses' do
     it 'returns a success response' do
       get '/buses'
