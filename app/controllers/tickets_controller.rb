@@ -24,7 +24,7 @@ class TicketsController < ApplicationController
     for i in @seats
       next unless @trip.bus.seats.find_by(id: i).booked == true
 
-      flash[:alert] = 'Booking Failedx'
+      flash[:alert] = 'Booking Failed'
       return redirect_to action: 'index'
 
     end
@@ -45,6 +45,10 @@ class TicketsController < ApplicationController
     @seats = session[:seats]
     @trip = Trip.find_by(id: session[:trip])
     @total = @trip.ticket_price * session[:seats].size
+    if @total == 0
+    flash[:alert] = 'Select atleast 1 seat'
+    redirect_to seat_plan_path(session[:trip]), status: :see_other
+    end
   end
 
   def payment
