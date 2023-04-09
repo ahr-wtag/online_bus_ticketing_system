@@ -6,8 +6,10 @@ class Trip < ApplicationRecord
   validate :check_if_present
 
   def check_if_present
-    if Trip.where(date:self.date,time:self.time,bus:self.bus).size >=1
-      errors.add(:time, "Trip is already exist with tihs bus on this date and time");
+    if new_record?
+      if Trip.where(date:self.date,time:self.time,bus:self.bus).size >=1
+        errors.add(:time, "Trip is already exist with tihs bus on this date and time");
+      end
     end
   end
   def time=(time)
