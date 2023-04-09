@@ -1,0 +1,9 @@
+require 'faker'
+FactoryBot.define do
+  factory :bus do
+    name { Faker::Vehicle.singapore_license_plate }
+    typed { %i[ac non_ac].sample }
+    brand { Faker::Vehicle.manufacture }
+    capacity { Faker::Number.between(from: 1, to: 45) }
+  end
+end

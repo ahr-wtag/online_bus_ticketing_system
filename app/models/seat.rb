@@ -1,12 +1,5 @@
 class Seat < ApplicationRecord
-  belongs_to :bus , optional: true
-  has_one :ticket
-  
+  belongs_to :bus
+  belongs_to :ticket, optional: true
   validates :number, presence: true
-
-  after_initialize :init
-
-  def init
-    self.booked ||=false
-  end
 end
