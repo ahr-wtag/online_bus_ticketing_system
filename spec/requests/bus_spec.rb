@@ -10,14 +10,23 @@ RSpec.describe 'Buses', type: :request do
 
   describe 'POST /buses' do
     let(:valid_params) { { bus: attributes_for(:bus) } }
+    let(:invalid_params) { { bus: { name: '', typed: '', brand: '', capacity: '' } } }
+
     it 'should render the new bus form' do
       get '/buses/new'
       expect(response).to render_template(:new)
     end
+
     it 'creates a new bus' do
       expect do
         post '/buses', params: valid_params
       end.to change(Bus, :count).by(1)
+    end
+
+    it 'should not create new bus for invalid params' do
+      expect do
+        post '/buses', params: invalid_params
+      end.to change(Route, :count).by(0)
     end
 
     it 'returns a success response' do
@@ -29,6 +38,7 @@ RSpec.describe 'Buses', type: :request do
   describe 'PUT /buses' do
     let(:bus) { create(:bus) }
     let(:valid_params) { { bus: { capacity: 25 } } }
+    let(:invalid_params) { { bus: { capacity: 50 } } }
 
     it 'should render the edit bus form' do
       get "/buses/#{bus.id}/edit"
@@ -37,6 +47,12 @@ RSpec.describe 'Buses', type: :request do
 
     it 'updates the bus' do
       put "/buses/#{bus.id}", params: valid_params
+      bus.reload
+      expect(bus.capacity).to eq(25)
+    end
+
+    it 'should not updates the bus for invalid params' do
+      put "/buses/#{bus.id}", params: invalid_params
       bus.reload
       expect(bus.capacity).to eq(25)
     end
