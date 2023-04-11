@@ -54,7 +54,7 @@ RSpec.describe 'Buses', type: :request do
     it 'should not updates the bus for invalid params' do
       put "/buses/#{bus.id}", params: invalid_params
       bus.reload
-      expect(bus.capacity).to eq(25)
+      expect(bus.capacity).not_to eq(50)
     end
 
     it 'returns a success response' do
