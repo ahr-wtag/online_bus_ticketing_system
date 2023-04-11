@@ -7,7 +7,7 @@ class TicketsController < ApplicationController
     @trips = @trip || []
   end
 
-  def seatPlan
+  def seat_plan
     @trip = Trip.find_by(id: params[:id])
     @bus = Bus.find_by(id: @trip.bus.id)
     @seats = @bus.seats.order(id: :asc)
@@ -25,7 +25,7 @@ class TicketsController < ApplicationController
       next unless @trip.bus.seats.find_by(id: i).booked == true
 
       flash[:alert] = 'Booking Failed'
-      return redirect_to action: 'index'
+      return redirect_to action: 'index', status: :see_other
 
     end
     if @ticket.save
@@ -33,11 +33,11 @@ class TicketsController < ApplicationController
         @trip.bus.seats.find_by(id: i).update(booked: true, ticket: @ticket)
       end
       flash[:notice] = 'Succesfully Booked'
-      redirect_to action: 'index'
+      redirect_to action: 'index', status: :see_other
     else
 
       flash[:alert] = 'Booking Failed'
-      redirect_to action: 'index'
+      redirect_to action: 'index', status: :see_other
     end
   end
 
@@ -45,10 +45,10 @@ class TicketsController < ApplicationController
     @seats = session[:seats]
     @trip = Trip.find_by(id: session[:trip])
     @total = @trip.ticket_price * session[:seats].size
-    if @total == 0
+    return unless @total == 0
+
     flash[:alert] = 'Select atleast 1 seat'
-    redirect_to seat_plan_path(session[:trip]), status: :see_other
-    end
+    redirect_to seat_plan_path(@trip), status: :see_other
   end
 
   def payment

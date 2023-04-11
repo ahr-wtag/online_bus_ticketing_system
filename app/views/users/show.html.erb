@@ -5,18 +5,24 @@
 
 <table border="1">
 <tr>
-<th>ID</th>
-<th>Route</th>
-<th>Seats</th>
-<th>Price</th>
-<th>Total Price</th>
+<th  style="padding:5px; text-align:center">ID</th>
+<th  style="padding:5px; text-align:center">Trip Date</th>
+<th  style="padding:5px; text-align:center">Trip Time</th>
+<th  style="padding:5px; text-align:center">Route</th>
+<th  style="padding:5px; text-align:center">BUS</th>
+<th  style="padding:5px; text-align:center">Seats</th>
+<th  style="padding:5px; text-align:center">Price</th>
+<th  style="padding:5px; text-align:center">Total Price</th>
     <% for ticket in @tickets  do%>
 <tr>
-    <td><%=ticket.id%></td>
-    <td><%=ticket.trip.route.getFullRoute%></td>
-    <td><%=ticket.seats.map {|seat| seat.number }%></td>
-    <td><%=ticket.trip.ticket_price%></td>
-    <td><%=ticket.total_price%></td>
+    <td style="padding:5px; text-align:center"><%=ticket.id%></td>
+    <td style="padding:5px; text-align:center"><%=ticket.trip.date%></td>
+    <td style="padding:5px; text-align:center"><%=ticket.trip.time.strftime("%I:%M%p")%></td>
+    <td style="padding:5px; text-align:center"><%=ticket.trip.route.getFullRoute%></td>
+    <td style="padding:5px; text-align:center"><%=ticket.trip.bus.name%></td>
+    <td style="padding:5px; text-align:center"><%=ticket.seats.map {|seat| seat.number }%></td>
+    <td style="padding:5px; text-align:center"><%=ticket.trip.ticket_price%></td>
+    <td style="padding:5px; text-align:center"><%=ticket.total_price%></td>
 </tr>
  <% end %>
 </table>
