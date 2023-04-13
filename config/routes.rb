@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :routes
   resources :buses
   resources :trips
+
+  mount Booking::Base => '/'
   # Defines the root path route ("/")
   root 'tickets#index'
   get 'profile', to: 'users#show', as: 'profile'

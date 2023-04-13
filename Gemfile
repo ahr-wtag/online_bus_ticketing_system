@@ -80,7 +80,10 @@ group :test do
 end
 gem 'cancancan'
 gem 'devise'
+gem 'devise-jwt'
 gem 'faker'
+gem 'grape'
+gem 'grape_on_rails_routes'
 gem 'phony_rails'
 gem 'pry'
 gem 'rails-controller-testing'
