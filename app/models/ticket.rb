@@ -1,9 +1,9 @@
 class Ticket < ApplicationRecord
-  belongs_to :user
-  belongs_to :payment
-  belongs_to :trip
-  has_many :seats
-  belongs_to :bus
+  belongs_to :user, optional: true
+  belongs_to :payment, optional: true
+  belongs_to :trip, optional: true
+  has_many :seats, dependent: :destroy
+  belongs_to :bus, optional: true
   validates :total_fare, presence: true
 
   def total_price

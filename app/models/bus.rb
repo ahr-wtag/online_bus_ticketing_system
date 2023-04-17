@@ -1,7 +1,7 @@
 class Bus < ApplicationRecord
-  has_many :tickets
-  has_many :seats, dependent: :delete_all
-  has_one :trip
+  has_many :tickets, dependent: :destroy
+  has_many :seats, dependent: :destroy
+  has_one :trip, dependent: :destroy
   validates :name, format: { with: /\A\S*\z/, message: 'no whitespace is allowed' }
   validates :name, uniqueness: { case_sensitive: false }
   validates :name, :typed, :brand, :capacity, presence: true
