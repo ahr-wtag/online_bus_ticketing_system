@@ -1,31 +1,34 @@
 <%= form_with url:booking_path ,method: :get do |f| %>
   <div>
      <%= f.label :origin %><br>
-    <%= f.select :origin, options_from_collection_for_select(@origins, "origin", "origin", params[:origin]),{prompt: "- Please select -"},{onchange: "this.form.submit()"} %>
+    <%= f.select :origin, options_from_collection_for_select(@origins, "origin", "origin", params[:origin]),{prompt: "- Please select -"},{onchange: "this.form.submit()",class: 'form-control' }%>
   </div>
   <div>
     <%= f.label :destination %><br>
-      <%= f.select :destination, options_from_collection_for_select(@destinations, "destination", "destination", params[:destination]),{prompt: "- Please select -"},{onchange: "this.form.submit()"} %>
+      <%= f.select :destination, options_from_collection_for_select(@destinations, "destination", "destination", params[:destination]),{prompt: "- Please select -"},{onchange: "this.form.submit()",class: 'form-control' } %>
   </div>
 <div>
     <%= f.label :date %><br>
-    <%= f.date_field :date,{min: Date.today , :value => Time.now.strftime(params[:date]|| Date.today.to_s) ,onchange: "this.form.submit()"}%>
+    <%= f.date_field :date,{min: Date.today , :value => Time.now.strftime(params[:date]|| Date.today.to_s) ,onchange: "this.form.submit()",class: 'form-control'}%>
   </div>
 <% end %>
 
 <br>
-<table border="1">
-<tr>
-<th>ID</th>
-<th>Ticket Price</th>
-<th>Date</th>
-<th>Time</th>
-<th>Bus</th>
-<th>Route</th>
-<th colspan=2>Action</th>
+<table class="table">
 
+ <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Ticket Price</th>
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
+      <th scope="col">Bus</th>
+      <th scope="col">Route</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
 
-</tr>
+<tbody>
 <% for trip in @trips  do%>
 <tr>
     <td><%=trip.id%></td>
@@ -37,5 +40,6 @@
     <td><%= link_to "Buy Ticket", seat_plan_path(trip) %></td>
 
 </tr>
+</tbody>
 <%end%>
 </table>

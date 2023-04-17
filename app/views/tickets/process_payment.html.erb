@@ -1,26 +1,39 @@
-number of seats : <%=@seats.size%><br>
-ticket price : <%=@trip.ticket_price%><br>
-total: <%=@total%>
-<br>
-<br>
+
+<table class="table table-bordered table-striped">
+  <tbody>
+    <tr>
+      <th>Number Of Seats</th>
+      <td><%=@seats.size%></td>
+    </tr>
+    <tr>
+      <th>Ticket Price</th>
+      <td><%=@trip.ticket_price%></td>
+    </tr>
+    <tr>
+      <th>Total</th>
+      <td><%=@total%></td>
+    </tr>
+  </tbody>
+</table>
+
 <%= form_with url:confirm_payment_path ,method: :post do |f| %>
 <div>
-    <%= f.label :number %><br>
-    <%= f.number_field :number%>
+    <%= f.label :Card_Number %><br>
+    <%= f.number_field :number,{class: 'form-control'}%>
 </div>
 
 <div>
     <%= f.label :CVC %><br>
-    <%= f.number_field :cvc%>
+    <%= f.number_field :cvc,{class: 'form-control'}%>
   </div>
 <div>
     <%= f.label :expiry_date %><br>
-    <%= f.number_field :expiry_date%>
+    <%= f.date_field :expiry_date,{class: 'form-control'}%>
 </div>
 
 <div>
     <br>
-    <%= f.submit :pay%>
+    <%= f.submit "Pay" ,{class: "btn btn-primary" }%>
 </div>
 
 <%end%>
