@@ -9,7 +9,7 @@
   </div>
 <div>
     <%= f.label :date %><br>
-    <%= f.date_field :date,{ :value => Time.now.strftime(params[:date]|| Date.today.to_s) ,onchange: "this.form.submit()"}%>
+    <%= f.date_field :date,{min: Date.today , :value => Time.now.strftime(params[:date]|| Date.today.to_s) ,onchange: "this.form.submit()"}%>
   </div>
 <% end %>
 
