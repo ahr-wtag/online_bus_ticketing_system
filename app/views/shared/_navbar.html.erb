@@ -1,16 +1,41 @@
-<div>
- <%= link_to "Booking",  booking_path%>
-<% unless current_user%>
-    <%= link_to "Sign Up",  new_user_registration_path%>
-    <%= link_to "Sign In", user_session_path%>       
-<%else%>
-    <%= link_to "Buses", buses_path%>
-    <%= link_to "Routes", routes_path%>
-    <%= link_to "trips", trips_path%>
-  <%= link_to "Profile", profile_path%>
-    <%= link_to "Settings", edit_user_registration_path%>  
-    <%= link_to "SignOut", destroy_user_session_path, data:{ "turbo-method": :delete }%>       
-<%end%>
-
-
-</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">BUS-BD</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+       <%= link_to "Booking",  booking_path, class:'nav-link' %>
+      </li>
+      <% unless current_user%>
+            <li class="nav-item active">
+              <%= link_to "Sign Up",  new_user_registration_path,class:'nav-link'%>
+            </li>
+            <li class="nav-item active">
+              <%= link_to "Sign In", user_session_path,class:'nav-link'%>   
+            </li>
+      <%else%>
+            <li class="nav-item active">
+              <%= link_to "Buses",  buses_path,class:'nav-link'%>
+            </li>
+            <li class="nav-item active">
+              <%= link_to "Routes", routes_path,class:'nav-link'%>   
+            </li>
+            <li class="nav-item active">
+              <%= link_to "trips",  trips_path,class:'nav-link'%>
+            </li>
+            <li class="nav-item active">
+              <%= link_to "Profile", profile_path,class:'nav-link'%>   
+            </li> 
+            </li>
+            <li class="nav-item active">
+              <%= link_to "Settings",  edit_user_registration_path,class:'nav-link'%>
+            </li>
+            <li class="nav-item active">
+              <%= link_to "SignOut", destroy_user_session_path, data:{ "turbo-method": :delete },class:'nav-link'%>   
+            </li>                
+      <%end%>
+    </ul>
+  </div>
+</nav>
