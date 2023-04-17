@@ -11,5 +11,5 @@ class User < ApplicationRecord
   validates :first_name, :last_name, presence: true, format: { with: /\A[A-Za-z]+\z/ }
   validates :email, :user_name, uniqueness: { case_sensitive: false }
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  phony_normalize :phone, default_country_code: 'US'
+  validates_plausible_phone :phone, presence: true
 end
