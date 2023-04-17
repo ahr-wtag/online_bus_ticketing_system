@@ -325,6 +325,7 @@ DEPENDENCIES
   grape_on_rails_routes
   importmap-rails
   jbuilder
+  jwt
   pg (~> 1.1)
   phony_rails
   pry

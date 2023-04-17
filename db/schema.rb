@@ -64,7 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_22_082933) do
     t.integer "ticket_price", default: 0, null: false
     t.integer "total_booked", default: 0, null: false
     t.date "date", default: "2023-04-17", null: false
-    t.time "time", default: "2000-01-01 03:55:08", null: false
+    t.time "time", default: "2000-01-01 04:28:50", null: false
     t.bigint "bus_id", null: false
     t.bigint "route_id", null: false
     t.datetime "created_at", null: false
@@ -83,7 +83,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_22_082933) do
     t.integer "role", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "password_digest"
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"

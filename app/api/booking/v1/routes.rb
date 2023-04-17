@@ -8,12 +8,22 @@ module Booking
           Route.all
         end
 
+        desc 'Get route by id'
+        route_param :id do
+          get do
+            Route.find_by(id: params[:id])
+          end
+        end
+
         desc 'Create a route'
         params do
           requires :origin, type: String
           requires :destination, type: String
         end
         post do
+          authenticate!
+          return { 'error': 'Authorization Failed' } if admin? == false
+
           @route = Route.new(params)
           return { 'error': @route.errors } unless @route.save
 
@@ -21,22 +31,27 @@ module Booking
         end
 
         desc 'update a route'
-        params do
-          requires :id, type: String
-        end
-        put do
-          @route = Route.find(params[:id])
-          return { 'error': @route.errors } unless @route.update(params)
+        route_param :id do
+          put do
+            authenticate!
+            return { 'error': 'Authorization Failed' } if admin? == false
 
-          @route
+            @route = Route.find(params[:id])
+            return { 'error': @route.errors } unless @route.update(params)
+
+            @route
+          end
         end
 
         desc 'delete a route'
-        params do
-          requires :id, type: String
-        end
-        delete do
-          Route.find(params[:id]).destroy
+
+        route_param :id do
+          delete do
+            authenticate!
+            return { 'error': 'Authorization Failed' } if admin? == false
+
+            Route.find(params[:id]).destroy
+          end
         end
       end
     end
