@@ -7,7 +7,7 @@ RSpec.describe Seat, type: :model do
       expect(seat).to be_valid
     end
     it { should validate_presence_of(:number) }
-    it { should belong_to(:bus) }
+    it { should belong_to(:bus).optional }
     it { should belong_to(:ticket).optional }
   end
 end

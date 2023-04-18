@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Buses', type: :request do
   let(:user) {create :user}
   before(:each) do 
+    user.role = :admin
     sign_in(user)
   end
   describe 'GET /buses' do

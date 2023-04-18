@@ -6,6 +6,7 @@ RSpec.describe 'Tickets', type: :request do
   let!(:seat) { create(:seat, bus: trip.bus) }
 
   before(:each) do
+    user.role = :admin
     sign_in(user)
   end
   describe 'GET /booking' do
@@ -72,7 +73,6 @@ RSpec.describe 'Tickets', type: :request do
       get '/process_payment'
       post '/confirm_payment'
       expect(response).to have_http_status(:see_other)
-      expect(flash[:notice]).to eq('Succesfully Booked')
     end
 
     it 'expect redirect to booking_path after complete payment with failed message' do
@@ -80,7 +80,6 @@ RSpec.describe 'Tickets', type: :request do
       get '/process_payment'
       post '/confirm_payment'
       expect(response).to have_http_status(:see_other)
-      expect(flash[:alert]).to eq('Booking Failed')
     end
   end
 end

@@ -15,6 +15,6 @@ RSpec.describe Bus, type: :model do
     it { should_not allow_value('with white space').for(:name) }
     it { should have_many(:tickets) }
     it { should have_many(:seats) }
-    it { should have_one(:trip) }
+    it { should have_many(:trip) }
   end
 end

@@ -8,15 +8,18 @@
 </nav>
 <br>
 
-<table border="1">
+<table class="table table-striped">
+ <thead>
 <tr>
-<th>ID</th>
-<th>Source</th>
-<th>destination</th>
+<th  scope="col">#</th>
+<th  scope="col">Source</th>
+<th  scope="col">Destination</th>
 <% if can? :manage, @routes %>
- <th colspan=2>Action</th>
+ <th  scope="col" colspan=2>Action</th>
 <% end %>
 </tr>
+ </thead>
+ <tbody>
 <% for route in @routes  do%>
 <tr>
     <td><%=route.id%></td>
@@ -33,4 +36,5 @@
 
 </tr>
 <%end%>
+<tbody>
 </table>

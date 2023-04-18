@@ -1,91 +1,69 @@
 require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
-  let(:user) { create :user }
-  before(:each) do
-    sign_in(user)
-  end
-
-  describe 'POST /user' do
-    let(:valid_params) { { user: attributes_for(:user) } }
-
-    let(:invalid_params) do
-      {
-        user: {
-          first_name: 'Redwan',
-          last_name: 'Ahmed',
-          email: 'wrongemail.com',
-          user_name: 'redwan',
-          password: 'password',
-          phone: '01965555555'
-        }
-      }
-    end
-
-    it 'should render the new user form' do
-      get '/users/new'
+  describe 'GET /users/sign_up' do
+    it 'should render the new sign up form' do
+      get '/users/sign_up'
       expect(response).to render_template(:new)
     end
+  end
 
-    context 'when the request is valid' do
-      it 'creates a new user' do
-        expect do
-          post '/users', params: valid_params
-        end.to change(User, :count).by(1)
-      end
-    end
-
-    context 'when the request is invalid' do
-      it 'does not create a new user' do
-        expect do
-          post '/users', params: invalid_params
-        end.to_not change(User, :count)
-
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
+  describe 'POST /users' do
+    let(:valid_params) { { user: attributes_for(:user) } }
+    it 'creates a new user' do
+      expect do
+        post '/users', params: valid_params
+      end.to change(User, :count).by(1)
+      expect(response).to have_http_status(:see_other)
     end
   end
 
-  describe 'PUT /users' do
-    let!(:users) { create(:user) }
-    let(:valid_params) { { user: { first_name: 'NewFirstName' } } }
+  describe 'GET /users/sign_in' do
+    let(:valid_params) { { user: attributes_for(:user) } }
+    it 'should render the new sign in form' do
+      get '/users/sign_in'
+      expect(response).to render_template(:new)
+    end
+  end
+
+  describe 'POST /users/sign_in' do
+    let(:user1) { create(:user) }
+    it 'should signin the user' do
+      post '/users/sign_in', params: { user: { email: user1.email, password: user1.password } }
+      expect(controller.current_user).to eq(user1)
+      expect(response).to have_http_status(:see_other)
+    end
+  end
+
+  describe 'PUT /users/edit' do
+    let(:user1) { create :user }
+    before do
+      sign_in(user1)
+    end
+    let(:valid_params) do
+      { user: { first_name: 'NewFirstName', current_password: user1.password } }
+    end
 
     it 'should render the edit users form' do
-      get "/users/#{users.id}/edit"
+      get '/users/edit'
       expect(response).to render_template(:edit)
     end
 
     it 'updates the users' do
-      patch "/users/#{users.id}", params: valid_params
-      users.reload
-      expect(users.first_name).to eq('NewFirstName')
-    end
-
-    it 'returns a success response' do
-      put "/users/#{users.id}", params: valid_params
-      expect(response).to have_http_status(:see_other)
+      put user_registration_path, params: valid_params
+      user1.reload
+      expect(user1.first_name).to eq('NewFirstName')
     end
   end
 
-  describe 'POST /sign_in' do
-    let!(:users) { create(:user) }
-    let(:valid_params) {  { email: users.email, password: users.password } }
-    it 'should render the login form' do
-      get '/sign_in'
-      expect(response).to render_template('sessions/new')
+  describe 'DELETE /users/sign_out' do
+    let(:user1) { create :user }
+    before do
+      sign_in user1
     end
-
-    it 'should logged In user' do
-      post '/sign_in', params: valid_params
-      expect(session[:user_id]).to eq(users.id)
-      expect(response).to have_http_status(:see_other)
-    end
-  end
-
-  describe 'DELETE /logout' do
     it 'should log out' do
-      delete '/logout'
-      expect(session[:user_id]).to eq(nil)
+      delete '/users/sign_out'
+      expect(controller.current_user).to eq(nil)
       expect(response).to have_http_status(:see_other)
     end
   end

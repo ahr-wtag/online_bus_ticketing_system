@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Routes', type: :request do
   let(:user) { create :user }
   before(:each) do
-    user.admin = true
+    user.role = :admin
     sign_in(user)
   end
   describe 'GET /routes' do

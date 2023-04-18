@@ -14,27 +14,27 @@
 
   <div>
     <%= form.label :name %><br>
-    <%= form.text_field :name %>
+    <%= form.text_field :name,{class: 'form-control'} %>
   </div>
 
   <div>
     <%= form.label :type %><br>
-    <%= form.select :typed,['ac','non_ac'] %><br>
+    <%= form.select :typed,['ac','non_ac'],{},{class: 'form-control'} %><br>
   </div>
 
   <div>
     <%= form.label :brand %><br>
-    <%= form.text_field :brand %><br>
+    <%= form.text_field :brand ,{class: 'form-control'}%><br>
   </div>
 
   <div>
     <%= form.label :capacity %><br>
-    <%= form.number_field :capacity %><br>
+    <%= form.number_field :capacity,{class: 'form-control'} %><br>
   </div>
 
   <br>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit "Add Bus",{class: "btn btn-primary" } %>
   </div>
 <% end %>

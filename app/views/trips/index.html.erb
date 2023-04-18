@@ -8,27 +8,30 @@
 </nav>
 <br>
 
-<table border="1">
+<table class="table table-striped">
+ <thead>
 <tr>
-<th>ID</th>
-<th>Ticket Price</th>
-<th>Date</th>
-<th>Time</th>
-<th>Bus</th>
-<th>Route</th>
+<th scope="col">#</th>
+<th scope="col">Ticket Price</th>
+<th scope="col">Date</th>
+<th scope="col">Time</th>
+<th scope="col">Bus</th>
+<th scope="col">Route</th>
 <% if can? :manage, @trips %>
-  <th colspan=2>Action</th>
+  <th scope="col" colspan=2>Action</th>
  <% end %>
 
 </tr>
+ </thead>
+ <tbody>
 <% for trip in @trips  do%>
 <tr>
-    <td><%=trip.id%></td>
-    <td><%=trip.ticket_price%></td>
-    <td><%=trip.date%></td>
-    <td><%=trip.time.strftime("%I:%M %P")%></td>
-    <td><%=trip.bus.name%></td>
-    <td><%=trip.route.getFullRoute%></td>
+    <td><%=trip&.id|| "N/A"%></td>
+    <td><%=trip&.ticket_price|| "N/A"%></td>
+    <td><%=trip&.date|| "N/A"%></td>
+    <td><%=trip&.time.strftime("%I:%M %P")|| "N/A"%></td>
+    <td><%=trip&.bus&.name || "N/A"%></td>
+    <td><%=trip&.route&.getFullRoute || "N/A"%></td>
 
 <% if can? :manage, @trips %>
       <td><%= link_to "Edit", edit_trip_path(trip) %></td>
@@ -39,4 +42,5 @@
 <% end %>
 </tr>
 <%end%>
+<tbody>
 </table>

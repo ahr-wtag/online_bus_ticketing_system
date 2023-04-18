@@ -13,33 +13,33 @@
   <% end %>
   <div>
     <%= form.label :ticket_price %><br>
-    <%= form.number_field :ticket_price %>
+    <%= form.number_field :ticket_price,{class: 'form-control'} %>
   </div>
 
   <div>
     <%= form.label :date %><br>
-    <%= form.date_field :date %>
+    <%= form.date_field :date,{class: 'form-control'} %>
   </div>
 
   <div>
     <%= form.label :time %><br>
-    <%= form.time_field :time %>
+    <%= form.time_field :time,value: @trip.time.strftime('%H:%M'), step: 1,class: 'form-control' %>
   </div>
 
   <div>
     <%= form.label :bus %><br>
-    <%= form.select :bus_id,Bus.all.map{|x| [x.name,x.id]} %>
+    <%= form.select :bus_id,Bus.all.map{|x| [x.name,x.id]},{},{class: 'form-control'} %>
   </div>
 
 
   <div>
     <%= form.label :route %><br>
-    <%= form.select :route_id,Route.all.map{|x| [x.getFullRoute,x.id]} %>
+    <%= form.select :route_id,Route.all.map{|x| [x.getFullRoute,x.id]},{},{class: 'form-control'} %>
   </div>
 
   
-
+<br>
   <div>
-    <%= form.submit %>
+    <%= form.submit "Add Trip",{class: "btn btn-primary" } %>
   </div>
 <% end %>

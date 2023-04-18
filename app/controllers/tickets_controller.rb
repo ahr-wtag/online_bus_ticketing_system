@@ -10,8 +10,7 @@ class TicketsController < ApplicationController
   def seat_plan
     @trip = Trip.find_by(id: params[:id])
     @bus = Bus.find_by(id: @trip.bus.id)
-    @seats = @bus.seats.order(id: :asc)
-    puts @seats.ids
+    @seats = Seat.where(trip: @trip, bus: @bus).order(id: :asc)
   end
 
   def confirm_payment

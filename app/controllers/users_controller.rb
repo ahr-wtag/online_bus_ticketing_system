@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :find_user_by_id, only: %i[edit update]
+  before_action :authenticate_user!
   def new
     @user = User.new
   end

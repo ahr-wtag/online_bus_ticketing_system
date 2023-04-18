@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Trips', type: :request do
-
-  let(:user) {create :user}
-  before(:each) do 
+  let(:user) { create :user }
+  before(:each) do
+    user.role = :admin
     sign_in(user)
   end
-  
 
   describe 'GET /trips' do
     it 'returns a success response' do

@@ -13,16 +13,6 @@ class BusesController < ApplicationController
   def create
     @bus = Bus.new(bus_params)
     if @bus.save
-      _count = @bus.capacity
-      for char in [*'A'..'Z'] do
-        Seat.create(number: char + '1', booked: false, bus: @bus)
-        _count -= 1
-        break if _count == 0
-
-        Seat.create(number: char + '2', booked: false, bus: @bus)
-        _count -= 1
-        break if _count == 0
-      end
       redirect_to action: 'index', status: :created
     else
       render :new, status: :unprocessable_entity

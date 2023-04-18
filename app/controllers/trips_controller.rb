@@ -13,6 +13,17 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.new(trip_params)
     if @trip.save
+      _count = @trip.bus.capacity
+      for char in [*'A'..'Z'] do
+        Seat.create(number: char + '1', booked: false, bus: @trip.bus, trip: @trip)
+        _count -= 1
+        break if _count == 0
+
+        Seat.create(number: char + '2', booked: false, bus: @trip.bus, trip: @trip)
+        _count -= 1
+        break if _count == 0
+      end
+
       redirect_to action: 'index', status: :created
     else
       render :new, status: :unprocessable_entity
@@ -22,7 +33,32 @@ class TripsController < ApplicationController
   def edit; end
 
   def update
-    if @trip.update(trip_params)
+    if @trip.bus.id != trip_params[:bus_id]
+      @tickets = Seat.where(trip: @trip, bus: @trip.bus, booked: true)
+      tp = trip_params
+      if @tickets.size > 0
+        flash[:alert] = 'some Seat is already sold, cant update bus now'
+        tp[:bus_id] = @trip.bus.id
+      else
+        Seat.where(trip: @trip, bus: @trip.bus).destroy_all
+
+        @bus = Bus.find(trip_params[:bus_id])
+        _count = @bus.capacity
+
+        for char in [*'A'..'Z'] do
+          Seat.create!(number: char + '1', booked: false, bus: @bus, trip: @trip)
+          _count -= 1
+          break if _count == 0
+
+          Seat.create!(number: char + '2', booked: false, bus: @bus, trip: @trip)
+          _count -= 1
+          break if _count == 0
+        end
+
+      end
+    end
+
+    if @trip.update!(tp)
       redirect_to action: 'index', status: :see_other
     else
       render :edit, status: :unprocessable_entity

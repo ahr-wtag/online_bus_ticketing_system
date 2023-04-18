@@ -16,6 +16,8 @@
               <%= link_to "Sign In", user_session_path,class:'nav-link'%>   
             </li>
       <%else%>
+          <%if current_user.admin?%>
+          
             <li class="nav-item active">
               <%= link_to "Buses",  buses_path,class:'nav-link'%>
             </li>
@@ -25,6 +27,9 @@
             <li class="nav-item active">
               <%= link_to "Trips",  trips_path,class:'nav-link'%>
             </li>
+
+
+          <%end%>
             <li class="nav-item active">
               <%= link_to "Profile", profile_path,class:'nav-link'%>   
             </li> 

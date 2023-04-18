@@ -8,17 +8,20 @@
 </nav>
 <br>
 
-<table border="1">
+<table class="table table-striped">
+ <thead>
 <tr>
-<th>ID</th>
-<th>Name</th>
-<th>Brand</th>
-<th>Type</th>
-<th>Capacity</th>
+<th scope="col">#</th>
+<th scope="col">Name</th>
+<th scope="col">Brand</th>
+<th scope="col">Type</th>
+<th scope="col">Capacity</th>
  <% if can? :manage, @buses %>
- <th colspan=2>Action</th>
+ <th scope="col" colspan=2>Action</th>
  <% end %>
 </tr>
+ </thead>
+ <tbody>
 <% for bus in @buses  do%>
 <tr>
     <td><%=bus.id%></td>
@@ -37,4 +40,5 @@
 
 </tr>
 <%end%>
+<tbody>
 </table>
