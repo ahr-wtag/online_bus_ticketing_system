@@ -42,7 +42,7 @@ RSpec.describe 'Routes', type: :request do
 
   describe 'PUT /routes' do
     let(:route) { create(:route) }
-    let(:valid_params) { { route: { origin: 'Dhaka' } } }
+    let(:valid_params) { { route: { origin: 'DHAKA' } } }
     let(:invalid_params) { { route: { origin: '1invalid2' } } }
 
     it 'should render the edit route form' do
@@ -53,7 +53,7 @@ RSpec.describe 'Routes', type: :request do
     it 'updates the route' do
       put "/routes/#{route.id}", params: valid_params
       route.reload
-      expect(route.origin).to eq('Dhaka')
+      expect(route.origin).to eq('DHAKA')
     end
 
     it 'should not updates the route for invalid params' do

@@ -7,7 +7,7 @@ RSpec.describe 'Authorizations', type: :request do
     let(:ability) { Ability.new(user) }
     let(:route) { create(:route) }
     let(:bus) { create(:bus) }
-    let(:trip) { create(:route) }
+    let(:trip) { create(:trip) }
     let(:route) { create(:route) }
 
     context 'when user is not admin' do
@@ -21,8 +21,12 @@ RSpec.describe 'Authorizations', type: :request do
         expect(ability).not_to be_able_to(:manage, trip)
       end
 
+      it 'does not allow the user to see trips details' do
+        expect(ability).not_to be_able_to(:show, trip)
+      end
+
       it 'does allow the user to see trips' do
-        expect(ability).to be_able_to(:read, trip)
+        expect(ability).to be_able_to(:index, trip)
       end
       it 'does allow the user to see buses' do
         expect(ability).to be_able_to(:read, bus)

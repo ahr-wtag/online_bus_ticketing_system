@@ -9,9 +9,13 @@ class Ability
     if user.admin?
       can :manage, :all
     else
-      can :read, :all
-      
+      cannot :show, Trip
+      can :index, Trip
+      can :read, :all do |resource|
+        !resource.is_a?(Trip)
+      end
     end
+
     # Define abilities for the user here. For example:
     #
     #   return unless user.present?

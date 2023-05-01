@@ -24,7 +24,7 @@ module Booking
           end
         end
 
-        post 'book seats'
+        desc 'book seats'
         post do
           authenticate!
           @seats = params[:seats].split(',')
@@ -34,7 +34,6 @@ module Booking
           @total = @seats.size * @trip.ticket_price
           @user = current_user
 
-          binding.pry
           @ticket = Ticket.new(total_fare: @total, user: current_user, payment: @payment, trip: @trip, bus: @trip.bus)
 
           for i in @seats

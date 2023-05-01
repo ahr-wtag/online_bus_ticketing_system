@@ -32,7 +32,7 @@ module Booking
 
         desc 'update a route'
         route_param :id do
-          put do
+          patch do
             authenticate!
             return { 'error': 'Authorization Failed' } if admin? == false
 

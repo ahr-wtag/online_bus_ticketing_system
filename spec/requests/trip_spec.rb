@@ -41,7 +41,7 @@ RSpec.describe 'Trips', type: :request do
 
   describe 'PUT /trips' do
     let!(:trip) { create(:trip) }
-    let(:valid_params) { { trip: { ticket_price: 900 } } }
+    let(:valid_params) { { trip: { bus_id: trip.bus.id, ticket_price: 900 } } }
     let(:invalid_params) { { trip: attributes_for(:trip, ticket_price: 'notANumber') } }
     it 'should render the edit trip form' do
       get "/trips/#{trip.id}/edit"

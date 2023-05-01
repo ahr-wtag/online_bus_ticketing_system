@@ -17,8 +17,9 @@
 <th scope="col">Time</th>
 <th scope="col">Bus</th>
 <th scope="col">Route</th>
+<th scope="col">Seat Booked</th>
 <% if can? :manage, @trips %>
-  <th scope="col" colspan=2>Action</th>
+  <th scope="col" colspan=3>Action</th>
  <% end %>
 
 </tr>
@@ -32,8 +33,10 @@
     <td><%=trip&.time.strftime("%I:%M %P")|| "N/A"%></td>
     <td><%=trip&.bus&.name || "N/A"%></td>
     <td><%=trip&.route&.getFullRoute || "N/A"%></td>
+    <td><%=trip&.total_booked || "N/A"%></td>
 
 <% if can? :manage, @trips %>
+      <td><%= link_to "Details", trip_path(trip) %></td>
       <td><%= link_to "Edit", edit_trip_path(trip) %></td>
       <td><%= link_to "Delete", trip_path(trip),data: {
                     turbo_method: :delete,

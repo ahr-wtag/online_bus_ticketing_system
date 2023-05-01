@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :find_trip_by_id, only: %i[edit update destroy]
+  before_action :find_trip_by_id, only: %i[edit show update destroy]
   before_action :authenticate_user!
   load_and_authorize_resource
   def index
@@ -8,6 +8,10 @@ class TripsController < ApplicationController
 
   def new
     @trip = Trip.new
+  end
+
+  def show
+    @tickets = Ticket.where(trip: @trip)
   end
 
   def create
@@ -33,11 +37,15 @@ class TripsController < ApplicationController
   def edit; end
 
   def update
-    if @trip.bus.id != trip_params[:bus_id]
+    if @trip.bus.nil? || @trip.bus.id != trip_params[:bus_id]
       @tickets = Seat.where(trip: @trip, bus: @trip.bus, booked: true)
       tp = trip_params
       if @tickets.size > 0
         flash[:alert] = 'some Seat is already sold, cant update bus now'
+        if @trip.bus.nil?
+          flash[:alert] = 'Cant Update,Contact with DB Admin'
+          return render :edit, status: :unprocessable_entity
+        end
         tp[:bus_id] = @trip.bus.id
       else
         Seat.where(trip: @trip, bus: @trip.bus).destroy_all

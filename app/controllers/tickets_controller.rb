@@ -1,6 +1,7 @@
 class TicketsController < ApplicationController
   before_action :find_dependency, only: %i[index]
   before_action :authenticate_user!, only: %i[process_payment confirm_payment]
+
   def index
     @origins = Route.select('DISTINCT ON (origin) *')
     @destinations = @destination || []
@@ -9,6 +10,11 @@ class TicketsController < ApplicationController
 
   def seat_plan
     @trip = Trip.find_by(id: params[:id])
+
+    if @trip.bus.nil?
+      flash[:alert] = 'Bus Not Available'
+      return redirect_to action: 'index', status: :see_other
+    end
     @bus = Bus.find_by(id: @trip.bus.id)
     @seats = Seat.where(trip: @trip, bus: @bus).order(id: :asc)
   end
@@ -32,6 +38,8 @@ class TicketsController < ApplicationController
         @trip.bus.seats.find_by(id: i).update(booked: true, ticket: @ticket)
       end
       flash[:notice] = 'Succesfully Booked'
+      @trip.update(total_booked: @trip.total_booked + @seats.size)
+
       redirect_to action: 'index', status: :see_other
     else
 

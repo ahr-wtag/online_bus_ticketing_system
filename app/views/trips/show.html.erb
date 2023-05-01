@@ -1,0 +1,24 @@
+<table class="table table-striped">
+ <thead>
+<tr>
+<th scope="col">#</th>
+<th scope="col">Buyer</th>
+<th scope="col">Contact</th>
+<th scope="col">PaymentID</th>
+<th scope="col">Seats</th>
+<th scope="col">Total Price</th>
+</tr>
+ </thead>
+ <tbody>
+<% for ticket in @tickets  do%>
+<tr>
+    <td><%=ticket&.id|| "N/A"%></td>
+    <td><%=ticket&.user&.first_name|| "N/A"%></td>
+    <td><%=ticket&.user&.phone|| "N/A"%></td>
+    <td><%=ticket&.payment_id|| "N/A"%></td>
+    <td><%=ticket&.seats.map {|seat| seat&.number }|| "N/A"%></td>
+    <td><%=ticket&.total_price || "N/A"%></td>
+<% end %>
+</tr>
+<tbody>
+</table>

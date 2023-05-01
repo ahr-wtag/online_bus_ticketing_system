@@ -27,7 +27,7 @@
     <td><%=ticket&.trip&.time&.strftime("%I:%M%p") || "N/A"%></td>
     <td><%=ticket&.trip&.route&.getFullRoute || "N/A"%></td>
     <td><%=ticket&.trip&.bus&.name || "N/A"%></td>
-    <td><%=ticket&.seats.map {|seat| seat&.number }%></td>
+    <td><%=ticket&.seats.map {|seat| seat&.number } || "N/A"%></td>
     <td><%=ticket&.trip&.ticket_price || "N/A"%></td>
     <td><%=ticket&.total_price%></td>
 </tr>
