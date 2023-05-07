@@ -2,7 +2,7 @@
   <div>
     <%= form.label :origin %><br>
     <%= form.text_field :origin %>
-    <% @route.errors.full_messages_for(:title).each do |message| %>
+    <% @route.errors.full_messages_for(:origin).each do |message| %>
       <div><%= message %></div>
     <% end %>
   </div>
@@ -10,7 +10,7 @@
   <div>
     <%= form.label :destination %><br>
     <%= form.text_field :destination %><br>
-    <% @route.errors.full_messages_for(:body).each do |message| %>
+    <% @route.errors.full_messages_for(:destination).each do |message| %>
       <div><%= message %></div>
     <% end %>
   </div>
